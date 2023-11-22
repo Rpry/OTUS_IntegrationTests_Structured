@@ -5,16 +5,18 @@ using Demo.Authentication.Dto;
 using Newtonsoft.Json;
 using WebApi.Integration.Services;
 using Xunit;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WebApi.Integration.Tests
 {
-    public class TokenAuthTests
+    public class TokenAuthTests : IClassFixture<TestFixture>
     {
         private readonly TokenService _tokenService;
 
-        public TokenAuthTests()
+        public TokenAuthTests(TestFixture testFixture)
         {
-            _tokenService = new TokenService(null);
+            var serviceProvider = testFixture.ServiceProvider;
+            _tokenService = serviceProvider.GetService<TokenService>();
         }
         
         [Fact]
