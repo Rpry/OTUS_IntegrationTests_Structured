@@ -48,7 +48,7 @@ namespace BusinessLogic.Services
         public async Task<CourseDto> GetById(int id)
         {
             var course = await _courseRepository.GetAsync(id);
-            await _service1HttpClient.SendRequestAsync(); //тестовый вызов микросервиса по http
+            //await _service1HttpClient.SendRequestAsync(); //тестовый вызов микросервиса по http
             return _mapper.Map<CourseDto>(course);
         }
 
