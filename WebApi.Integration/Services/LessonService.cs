@@ -17,7 +17,8 @@ public class LessonService
     public async Task<LessonModel> GetLessonAsync(int id, string token = null)
     {
         var response = await GetLessonInternalAsync(id, token);
-        return JsonConvert.DeserializeObject<LessonModel>(await response.Content.ReadAsStringAsync());
+        var content = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<LessonModel>(content);
     }
     
     public async Task<int> AddLessonAsync(LessonModel lessonModel, string token = null)
