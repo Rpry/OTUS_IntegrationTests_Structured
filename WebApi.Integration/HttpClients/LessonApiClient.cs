@@ -19,6 +19,8 @@ public class LessonApiClient : BaseHttpClient
         {
             AddToken(token);
         }
+
+        SetContext();
         return await HttpClient.GetAsync($"{BaseUri}/lesson/{id}");
     }
     
@@ -28,6 +30,8 @@ public class LessonApiClient : BaseHttpClient
         {
             AddToken(token);
         }
+        
+        SetContext();
         return await HttpClient.PostAsJsonAsync($"{BaseUri}/lesson", lessonModel);
     }
     
@@ -37,6 +41,8 @@ public class LessonApiClient : BaseHttpClient
         {
             AddToken(token);
         }
+        
+        SetContext();
         return await HttpClient.PutAsJsonAsync($"{BaseUri}/lesson/{id}", lessonModel);
     }
     

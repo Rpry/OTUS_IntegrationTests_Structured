@@ -8,10 +8,10 @@ namespace WebApi.Integration.Services;
 
 public class LessonService
 {
-    private readonly LessonApiClient _applicationHttpClient;
+    private readonly LessonApiClient _lessonHttpClient;
     public LessonService(LessonApiClient lessonApiClient)
     {
-        _applicationHttpClient = lessonApiClient;
+        _lessonHttpClient = lessonApiClient;
     }
 
     public async Task<LessonModel> GetLessonAsync(int id, string token = null)
@@ -28,16 +28,16 @@ public class LessonService
     
     public async Task<HttpResponseMessage> GetLessonInternalAsync(int id, string token = null)
     {
-        return await _applicationHttpClient.GetLessonAsync(id, token);
+        return await _lessonHttpClient.GetLessonAsync(id, token);
     }
     
     public async Task<HttpResponseMessage> AddLessonInternalAsync(LessonModel lessonModel, string token = null)
     {
-        return await _applicationHttpClient.AddLessonAsync(lessonModel, token);
+        return await _lessonHttpClient.AddLessonAsync(lessonModel, token);
     }
     
     public async Task<HttpResponseMessage> EditLessonInternalAsync(int id, LessonModel lessonModel, string token = null)
     {
-        return await _applicationHttpClient.EditLessonAsync(id, lessonModel, token);
+        return await _lessonHttpClient.EditLessonAsync(id, lessonModel, token);
     }
 }

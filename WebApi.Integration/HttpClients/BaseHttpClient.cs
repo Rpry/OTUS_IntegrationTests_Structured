@@ -12,7 +12,13 @@ public class BaseHttpClient
     protected BaseHttpClient(HttpClient httpClient)
     {
         HttpClient = httpClient;
+    }
+
+    protected void SetContext()
+    {
+        HttpClient.DefaultRequestHeaders.Remove(Constants.RequestCorrelationIdName);
         HttpClient.DefaultRequestHeaders.Add(Constants.RequestCorrelationIdName, Guid.NewGuid().ToString());
+        HttpClient.DefaultRequestHeaders.Remove(Constants.RequestSetCorrelationIdName);
         HttpClient.DefaultRequestHeaders.Add(Constants.RequestSetCorrelationIdName, RequestContext.GetRequestSetCorId());
     }
 }

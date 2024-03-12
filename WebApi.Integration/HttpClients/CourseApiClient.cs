@@ -20,7 +20,20 @@ public class CourseApiClient : BaseHttpClient
             AddAuthCookie(cookie);
         }
 
+        SetContext();
         var res = await HttpClient.PostAsJsonAsync($"{BaseUri}/course", course);
+        return res;
+    }
+    
+    public async Task<HttpResponseMessage> GetCourseAsync(int id, string cookie = null)
+    {
+        if (cookie != null)
+        {
+            AddAuthCookie(cookie);
+        }
+
+        SetContext();
+        var res = await HttpClient.GetAsync($"{BaseUri}/course/{id}");
         return res;
     }
 
