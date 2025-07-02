@@ -102,7 +102,7 @@ namespace WebApi
             }
             app.UseRequestContextMiddleware();
             app.UseSimpleHttpLogging();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -132,11 +132,13 @@ namespace WebApi
         
         private static IServiceCollection InstallAutomapper(IServiceCollection services)
         {
-            services.AddSingleton<IMapper>(new Mapper(GetMapperConfiguration()));
+            var sp = services.BuildServiceProvider();
+            var loggerFactory = sp.GetService<Microsoft.Extensions.Logging.ILoggerFactory>();
+            services.AddSingleton<IMapper>(new Mapper(GetMapperConfiguration(loggerFactory)));
             return services;
         }
         
-        private static MapperConfiguration GetMapperConfiguration()
+        private static MapperConfiguration GetMapperConfiguration(Microsoft.Extensions.Logging.ILoggerFactory loggerFactory)
         {
             var configuration = new MapperConfiguration(cfg =>
             {
@@ -144,7 +146,7 @@ namespace WebApi
                 cfg.AddProfile<LessonMappingsProfile>();
                 cfg.AddProfile<BusinessLogic.Services.Mapping.CourseMappingsProfile>();
                 cfg.AddProfile<BusinessLogic.Services.Mapping.LessonMappingsProfile>();
-            });
+            }, loggerFactory);
             configuration.AssertConfigurationIsValid();
             return configuration;
         }

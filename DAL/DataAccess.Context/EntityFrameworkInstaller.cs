@@ -11,7 +11,6 @@ namespace DataAccess.EntityFramework
             services
                 .AddDbContext<DatabaseContext>(o => o
                     .UseSqlite(connectionString));
-                    //.UseSqlServer(connectionString));
             return services;
         }
     }
